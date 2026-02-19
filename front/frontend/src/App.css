@@ -1,0 +1,664 @@
+
+
+@font-face {
+  font-family: "SF Pro Display";
+  src: url("../public/fonts/SFPro/SF-Pro-Rounded-Bold.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "SF Pro Display";
+  src: url("../public/fonts/SFPro/SF-Pro-Rounded-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: "SF Pro Display";
+  src: url("../public/fonts/SFPro/SF-Pro-Rounded-Semibold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+}
+
+
+
+
+@font-face {
+  font-family: "SF Pro Text";
+  src: url("../public/fonts/SFPro/SF-Pro-Text-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "SF Pro Text";
+  src: url("../public/fonts/SFPro/SF-Pro-Text-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: "SF Pro Text";
+  src: url("../public/fonts/SFPro/SF-Pro-Text-Semibold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+}
+
+
+
+:root {
+  --bg: #eceff1;                        
+  --sidebar-bg: #f7f9fa;             
+  --panel: #ffffff;                   
+  --card-bg: #ffffff;                 
+  --muted: #6f6f74;
+  --text: #1d1d1f;
+  --accent: #0a84ff;                    
+  --border: rgba(0,0,0,0.08);
+  --shadow: 0 8px 22px rgba(0,0,0,0.06);
+
+  --radius: 16px;
+  --max-w: 1200px;
+}
+
+/* DARK MODE */
+:root.dark {
+  --bg: #1c1c1e;
+  --sidebar-bg: #2c2c2e;
+  --panel: #2c2c2e;
+  --card-bg: #3a3a3c;
+  --muted: #9e9ea4;
+  --text: #f5f5f7;
+  --accent: #0a84ff;
+  --border: rgba(255,255,255,0.12);
+  --shadow: 0 6px 20px rgba(0,0,0,0.45);
+}
+
+/* Transition */
+html, body, #root {
+  transition: background .25s ease, color .25s ease;
+}
+html, body, #root {
+  font-family:
+    "SF Pro Text",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    system-ui,
+    sans-serif;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: -0.011em;
+}
+
+
+
+
+html, body, #root {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "SF Pro", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+
+
+.app-shell {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+
+
+
+
+
+
+.sidebar {
+  width: 260px;
+  background: var(--sidebar-bg);
+  padding: 28px 22px;
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.sidebar .logo {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px;
+  font-size: 15px;
+  background: transparent;
+  border: none;
+  border-radius: 12px;
+  color: var(--muted);
+  cursor: pointer;
+  transition: background .2s, color .2s;
+}
+
+.nav-btn:hover {
+  background: rgba(10,132,255,0.1);
+}
+
+.nav-btn.active {
+  background: rgba(10,132,255,0.14);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+
+
+
+
+
+
+/* ---------------------------
+   MAIN CONTENT AREA
+------------------------------*/
+
+.content-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 18px 24px 18px 24px;
+  overflow-y: auto;
+}
+.content-area.stick {
+  padding: 0px 24px 18px 24px;
+  
+}
+
+
+
+
+
+.topbar {
+  width: 100%;
+  max-width: var(--max-w);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 12px 20px;
+  margin-bottom: 12px;
+
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  box-shadow: 0 0 0 rgba(0,0,0,0);   /* no shadow initially */
+
+  position: relative;
+  top: 0px;
+  z-index: 9999;
+
+  
+  transition: 
+    box-shadow 0.25s ease,
+    background 0.25s ease,
+    transform 0.25s ease,
+    position 0.25s ease,
+    border-top-left-radius 0.25s ease,
+    border-top-right-radius 0.25s ease;
+    
+}
+
+/* Dark mode */
+:root.dark .topbar {
+  background: rgba(44,44,46,0.5);
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+.topbar.is-sticky {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  transform: translateY(0px);
+  position: sticky;
+  border-top-left-radius: unset;
+  border-top-right-radius: unset;
+}
+
+
+/* Title */
+.topbar-title {
+  font-size: 20px;
+  font-weight: 600;
+  user-select: none;
+}
+
+/* Search bar */
+.search {
+  flex: 1;
+  max-width: 480px;
+  margin: 0 20px;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 10px 16px;
+  border-radius: 14px;
+
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  transition: 
+    max-width 0.25s ease,
+    border-radius 0.25s ease;
+}
+.topbar.is-sticky  .search{
+  max-width: 100%;
+  border-radius: 20px;
+  width: 600px;
+}
+
+
+:root.dark .search {
+  background: rgba(56,56,58,0.75);
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+.search input {
+  flex: 1;
+  font-size: 14px;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--text);
+}
+
+/* Theme toggle */
+.theme-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+
+  background: rgba(255,255,255,0.7);
+  border: 1px solid var(--border);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+}
+
+:root.dark .theme-btn {
+  background: rgba(44,44,46,0.6);
+}
+
+
+
+
+
+
+
+
+/* ---------------------------
+   FLOATING PANEL (Photos/People)
+------------------------------*/
+
+.panel {
+  width: 100%;
+  max-width: var(--max-w);
+  background: var(--panel);
+  padding: 24px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  z-index: 1; /* ⭐ stays below topbar */
+}
+
+
+
+
+
+
+/* ---------------------------
+   GALLERY
+------------------------------*/
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+
+
+/* Photo cards */
+.card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: transform .18s ease, box-shadow .18s ease;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+}
+
+.card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+/* ---------------------------
+   PEOPLE GRID
+------------------------------*/
+
+/* ===========================================================
+     Improved People Page – iCloud Level UI
+=========================================================== */
+
+.people-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 24px;
+  padding: 10px 4px;
+}
+
+.animate-people > .person-card {
+  animation: fadeUp 0.4s ease;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.person-card {
+  background: var(--panel);
+  padding: 20px 14px;
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  text-align: center;
+  transition: transform .25s ease, box-shadow .25s ease, border .25s ease;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+}
+
+.person-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 26px rgba(0,0,0,0.12);
+  border: 1px solid rgba(10,132,255,0.25);
+}
+
+/* Avatar Wrapper */
+.person-avatar-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.avatar {
+  width: 162px;
+  height: 142px;
+  border-radius: 11%;
+  overflow: hidden;
+  background: #dfe2e6;
+  border: 1px solid rgba(255,255,255,0.6);
+  box-shadow: 0 3px 14px rgba(0,0,0,0.08);
+  transition: box-shadow .25s ease, transform .25s ease;
+}
+
+.avatar-hover:hover {
+  box-shadow: 0 6px 22px rgba(10, 132, 255, 0.30);
+  transform: scale(1.04);
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.person-name {
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.photo-count {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+/* Fancy Rename UI */
+.rename-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  font-size: 12px;
+  border-radius: 10px;
+  background: rgba(10, 132, 255, 0.12);
+  color: var(--accent);
+  border: none;
+  cursor: pointer;
+  transition: background .2s ease, transform .2s ease;
+}
+
+.rename-btn:hover {
+  background: rgba(10,132,255,0.16);
+  transform: translateY(-1px);
+}
+
+.rename-panel {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  animation: fadeIn .3s ease;
+}
+
+.rename-btn-row {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.rename-input-fancy {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  color: var(--text);
+  transition: box-shadow .2s ease, border .2s ease;
+}
+
+.rename-input-fancy:focus {
+  outline: none;
+  border: 1px solid var(--accent);
+  box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.15);
+}
+
+.rename-save-btn {
+  padding: 8px 14px;
+  background: linear-gradient(180deg, #0a84ff, #006be9);
+  color: white;
+  border-radius: 12px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: filter .25s ease;
+}
+
+.rename-save-btn:hover {
+  filter: brightness(1.1);
+}
+
+.rename-cancel-btn {
+  padding: 8px 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  font-size: 13px;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.rename-cancel-btn:hover {
+  background: rgba(0,0,0,0.05);
+}
+
+/* Subtle fade-in animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+
+.photo-count {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+/* Buttons */
+.btn {
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: var(--accent);
+  color: white;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}
+
+/* ---------------------------
+   OVERLAY (Person Photos)
+------------------------------*/
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5000;
+}
+
+.overlay-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(10px);
+}
+
+.overlay-panel {
+  position: relative;
+  background: var(--panel);
+  width: min(1200px, 96%);
+  max-height: 88vh;
+  overflow: auto;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+}
+
+/* ---------------------------
+   LIGHTBOX
+------------------------------*/
+
+.lightbox img {
+  max-width: 88vw;
+  max-height: 86vh;
+  border-radius: 14px;
+}
+
+/* ---------------------------
+   FAB
+------------------------------*/
+
+.fab {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 56px;
+  height: 56px;
+  border-radius: 28px;
+  background: linear-gradient(180deg, #0a84ff, #006be9);
+  color: white;
+  font-size: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+}
+.fab {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 56px;
+  height: 56px;
+  border-radius: 28px;
+  background: linear-gradient(180deg, #0a84ff, #006be9);
+  color: white;
+  font-size: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+
+  z-index: 99999; /* ⭐ FIX: Always stays on top */
+}
+
+
+
+
+
+
+
+/* ---------------------------
+   MOBILE
+------------------------------*/
+
+@media (max-width: 900px) {
+  .sidebar {
+    display: none;
+  }
+  .content-area {
+    padding: 12px;
+  }
+  .panel {
+    padding: 16px;
+  }
+}
+
+
+.topbar-title,
+.person-name,
+.panel-title {
+  font-family: "SF Pro Display", "SF Pro Text", sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.012em;
+}

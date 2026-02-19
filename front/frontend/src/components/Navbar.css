@@ -1,0 +1,27 @@
+.upload-bar {
+  height: 48px;
+  padding: 6px 20px;
+  background: #121212;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.upload-bar label {
+  cursor: pointer;
+  color: #ddd;
+}
+
+.upload-bar label:hover {
+  color: #fff;
+}
+
+.upload-bar button {
+  background: #3b82f6;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
